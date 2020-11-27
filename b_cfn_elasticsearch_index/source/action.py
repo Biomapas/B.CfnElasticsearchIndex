@@ -18,7 +18,7 @@ class Action:
     def __init__(self, invocation_event: Dict[str, Any]):
         self.__invocation_event: Dict[str, Any] = invocation_event
         self.__parameters: Dict[str, Any] = invocation_event['ResourceProperties']
-        self.__old_parameters: Dict[str, Any] = invocation_event['OldResourceProperties']
+        self.__old_parameters: Optional[Dict[str, Any]] = invocation_event.get('OldResourceProperties')
         self.__resource_id: Optional[str] = invocation_event.get('PhysicalResourceId')
 
         try:
@@ -94,7 +94,7 @@ class Action:
             if self.MIGRATE_DATA:
                 self.__migrate_index(
                     region=self.REGION,
-                    target_elasticsearch_endpoint=self.ELASTICSEARCH_ENDPOINT
+                    target_elasticsearch_endpoint=self.ELASTICSEARCH_ENDPOINT,
                     source_elasticsearch_endpoint=old_es_endpoint,
                     target_index_name=new_index_name,
                     source_index_name=index_name,
@@ -121,7 +121,7 @@ class Action:
                 if self.MIGRATE_DATA:
                     self.__migrate_index(
                         region=self.REGION,
-                        target_elasticsearch_endpoint=self.ELASTICSEARCH_ENDPOINT
+                        target_elasticsearch_endpoint=self.ELASTICSEARCH_ENDPOINT,
                         source_elasticsearch_endpoint=old_es_endpoint,
                         target_index_name=new_index_name,
                         source_index_name=index_name,
@@ -149,7 +149,7 @@ class Action:
         awsauth = AWS4Auth(
             credentials.access_key,
             credentials.secret_key,
-            region,
+            self.REGION,
             "es",
             session_token=credentials.token,
         )
