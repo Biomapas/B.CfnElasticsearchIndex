@@ -4,6 +4,7 @@ from functools import lru_cache
 
 from aws_cdk.aws_lambda import Code, SingletonFunction, Runtime
 from aws_cdk.core import Stack, Duration
+from aws_cdk.aws_iam import PolicyStatement, PolicyDocument, Role, ServicePrincipal
 
 from b_elasticsearch_layer.layer import Layer as ElasticsearchLayer
 
@@ -35,7 +36,8 @@ class ElasticsearchIndexProviderFunction(SingletonFunction):
             runtime=Runtime.PYTHON_3_8,
             layers=[ElasticsearchLayer(scope, f'{name}ElasticsearchLayer')],
             environment={},
-            timeout=Duration.minutes(10)
+            timeout=Duration.minutes(10),
+            role=self.role(),
         )
 
     def role(self) -> Role:
@@ -54,7 +56,6 @@ class ElasticsearchIndexProviderFunction(SingletonFunction):
         return Role(
             scope=self.__scope,
             id=f"{self.__name}ElasticsearchIndexResourceProviderRole",
-            role_name=f"{self.__name}ElasticsearchIndexResourceProviderRole",
             assumed_by=ServicePrincipal("lambda.amazonaws.com"),
             description=f"A role for ElasticsearchIndexResourceProvider lambda function.",
             inline_policies=inline_policies,

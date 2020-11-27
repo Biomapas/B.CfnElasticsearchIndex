@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.3
+* Fixed various bugs.
+
 ### 0.0.2
 * Fixed tests.
 
