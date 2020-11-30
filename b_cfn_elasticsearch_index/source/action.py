@@ -155,7 +155,7 @@ class Action:
         )
 
         es = Elasticsearch(
-            hosts=[{"host": elasticsearch_endpoint, "port": 443}],
+            hosts=[{"host": self.ELASTICSEARCH_ENDPOINT, "port": 443}],
             http_auth=awsauth,
             use_ssl=True,
             verify_certs=True,
