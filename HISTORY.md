@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.4
+* Fixed resource deletion.
+
 ### 0.0.3
 * Fixed various bugs.
 
