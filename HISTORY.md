@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.5
+* Fixed resource deletion once again.
+
 ### 0.0.4
 * Fixed resource deletion.
 

@@ -164,7 +164,7 @@ class Action:
 
         es.indices.delete(index_name)
 
-        return {"IndexName": index_name}, physical_id
+        return {"IndexName": index_name}, self.__resource_id
 
     @staticmethod
     def __create_index(
