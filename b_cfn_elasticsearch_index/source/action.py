@@ -191,6 +191,7 @@ class Action:
             use_ssl=True,
             verify_certs=True,
             connection_class=RequestsHttpConnection,
+            retry_on_timeout=True,
         )
 
         try:
