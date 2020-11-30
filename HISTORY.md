@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.6
+* Retry on timeout when accessing elasticsearch.
+
 ### 0.0.5
 * Fixed resource deletion once again.
 
